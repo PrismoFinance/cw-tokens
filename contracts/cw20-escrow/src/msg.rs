@@ -17,13 +17,14 @@ pub enum ExecuteMsg {
     /// Set the recipient of the given escrow
     SetRecipient {
         id: String,
-        recipient: String,
+        recipient: String, // Destination from bounty contract
     },
     /// Approve sends all tokens to the recipient.
     /// Only the arbiter can do this
     Approve {
         /// id is a human-readable name for the escrow from create
         id: String,
+        // will probably need info from the bounty like bounty_id, etc.
     },
     /// Refund returns all remaining tokens to the original sender,
     /// The arbiter can do this any time, or anyone can do this after a timeout
