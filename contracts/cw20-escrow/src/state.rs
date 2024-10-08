@@ -49,11 +49,11 @@ impl GenericBalance {
 
 #[cw_serde]
 pub struct Escrow {
-    /// arbiter can decide to approve or refund the escrow
+    /// arbiter can decide to approve or refund the bounty escrow
     pub arbiter: Addr,
-    /// if approved, funds go to the recipient, cannot approve if recipient is none
+    /// if approved, funds go to the recipient, cannot approve if recipient is none. (Destinations) 
     pub recipient: Option<Addr>,
-    /// if refunded, funds go to the source
+    /// if refunded, funds go to the source (owner of bounty contract) 
     pub source: Addr,
     /// Title of the escrow, for example for a bug bounty "Fix issue in contract.rs"
     pub title: String,
