@@ -12,7 +12,7 @@ use crate::error::ContractError;
 use crate::msg::{
     CreateMsg, DetailsResponse, ExecuteMsg, InstantiateMsg, ListResponse, QueryMsg, ReceiveMsg,
 };
-use crate::state::{all_escrow_ids, Escrow, GenericBalance, ESCROWS};
+use crate::state::{all_escrow_ids, Escrow, GenericBalance, ESCROWS, EscrowStatus};
 
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:cw20-escrow";
@@ -47,6 +47,8 @@ pub fn execute(
         ExecuteMsg::Approve { id } => execute_approve(deps, env, info, id),
         ExecuteMsg::TopUp { id } => execute_top_up(deps, id, Balance::from(info.funds)),
         ExecuteMsg::Refund { id } => execute_refund(deps, env, info, id),
+        ExecuteMsg::UpdateEscrow { } => execute_update_escrow(deps, env, info),
+        ExecuteMsg::ExpiredEscrow { } => execute_expired_escrow(deps, env, info),
         ExecuteMsg::Receive(msg) => execute_receive(deps, info, msg),
     }
 }
