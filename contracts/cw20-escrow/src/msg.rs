@@ -101,11 +101,11 @@ pub struct CreateMsg {
     pub status: EscrowStatus,
     /// id is a human-readable name for the escrow to use later
     /// 3-20 bytes of utf-8 text
-    pub id: String,
+    pub id: String, // Can we link this ID to the bounty ID? 
     /// arbiter can decide to approve or refund the escrow
-    pub arbiter: String,
+    pub arbiter: String, // Person determining the status of the escrow and where payment is released. 
     /// if approved, funds go to the recipient
-    pub recipient: Option<String>,
+    pub recipient: Option<String>, // Bounty assignee for completed cases and Bounty Issuer for 'Expired' & 'Rejected'. Stays in Escrow for 'In Progress'.
     /// Title of the escrow
     pub title: String,
     /// Longer description of the escrow, e.g. what conditions should be met
