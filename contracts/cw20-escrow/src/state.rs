@@ -48,7 +48,17 @@ impl GenericBalance {
 }
 
 #[cw_serde]
+pub enum EscrowStatus {
+    Completed {},
+    Rejected {},
+    In Progress {},
+    Expired {},
+}
+
+
+#[cw_serde]
 pub struct Escrow {
+    pub status: EscrowStatus,
     /// arbiter can decide to approve or refund the bounty escrow
     pub arbiter: Addr,
     /// if approved, funds go to the recipient, cannot approve if recipient is none. (Destinations) 
