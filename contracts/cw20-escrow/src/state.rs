@@ -94,14 +94,24 @@ impl Escrow {
     }
 }
 
-pub const ESCROWS: Map<&str, Escrow> = Map::new("escrow");
+pub const ESCROW: Map<&str, Escrow> = Map::new("escrow");
 
-/// This returns the list of ids for all registered escrows
-pub fn all_escrow_ids(storage: &dyn Storage) -> StdResult<Vec<String>> {
-    ESCROWS
-        .keys(storage, None, None, Order::Ascending)
-        .collect()
-}
+// Function to return the escrow_id of a specific escrow based on owner
+pub fn escrow_id_by_owner(
+    storage: &dyn Storage,
+    owner: &Addr,            // Updated to search by 'owner'
+) -> StdResult<String> {
+    let escrow_id: Vec<String> = ESCROW
+        .keys(storage, None, None, cosmwasm_std::Order::Ascending)
+        .collect::<StdResult<Vec<_>>>()?;
+
+    // Search for the escrow created by the given owner
+    for id in ids {
+        let escrow = ESCROW.load(storage, &escrow_id)?;
+        if &escrow.owner == owner { // Updated from 'creator' to 'owner'
+            return Ok(escrow_id); // Return the id of the escrow created by this owner
+        }
+    }
 
 #[cfg(test)]
 mod tests {
